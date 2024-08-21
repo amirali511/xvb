@@ -13,9 +13,11 @@ fn C.xcb_connection_has_error(conn &Connection_t) (int)
 
 // Connect
 pub fn connect(dpy string) (&Connection_t, int) {
-	mut scr := 0
-	conn := C.xcb_connect(dpy.str, &scr)
-	return conn, scr
+	unsafe {
+		mut scr := nil
+		conn := C.xcb_connect(dpy.str, &scr)
+		return conn
+	}
 }
 
 // Disconnect
